@@ -87,6 +87,11 @@ def main():
 
             if char == ord("\n"):
                 # 按下回车的操作：打开文件/文件夹
+                path = "".join(buff)
+                if os.path.exists(path):
+                    os.startfile(path)
+                else:
+                    test_show("Directory/File not found!")
                 if "".join(buff) == "exit":
                     is_exit = True
                 break
@@ -120,7 +125,7 @@ def main():
 
             tmp_sub = show(buff)
 
-            test_show("".join(buff))
+            # test_show("".join(buff))
 
         upperwin.clear()
         upperwin.refresh()
