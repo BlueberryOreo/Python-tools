@@ -59,13 +59,28 @@ class Trie:
 
 
 if __name__ == "__main__":
+    import os
+    from pypinyin import lazy_pinyin
     tree = Trie()
 
-    tree.insert("tree")
-    tree.insert("air")
-    tree.insert("train")
-    print(tree.get_size())
-    print(tree.search("apple"))
-    print(tree.search("air"))
-    tree.show_stored()
-    print(tree.get_sub_tree(""))
+    # tree.insert("tree")
+    # tree.insert("air")
+    # tree.insert("train")
+    # print(tree.get_size())
+    # print(tree.search("apple"))
+    # print(tree.search("air"))
+    # tree.show_stored()
+    # print(tree.get_sub_tree(""))
+    dirs = os.listdir("e:/")
+    for d in dirs:
+        if d != lazy_pinyin(d)[0]:
+            # 中文
+            pinyin = "".join(lazy_pinyin(d))
+            tree.insert(pinyin, d)
+        else:
+            # 英文
+            target = d
+            d = d.lower()
+            tree.insert(d, target)
+
+    print(tree.get_sub_tree("p"))
