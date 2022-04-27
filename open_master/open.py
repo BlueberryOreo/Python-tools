@@ -2,10 +2,11 @@ import curses
 import os
 from pypinyin import lazy_pinyin
 from trie import Trie
+import log
 
 KEY_BACKSPACE = 8
 START_ICON = ">"
-K = 10
+K = 15
 
 stdscr = curses.initscr()
 stdscr.keypad(True)
@@ -87,12 +88,16 @@ def main():
             if char == ord("\n"):
                 # 按下回车的操作：打开文件/文件夹
                 path = "".join(buff)
-                if os.path.exists(path):
+                if path == "exit":
+                    is_exit = True
+                elif os.path.exists(path):
                     os.startfile(path)
+                    # log.write("Open directory/file: " + path)
+                    # log.new_line()
                 else:
                     test_show("Directory/File not found!")
-                if "".join(buff) == "exit":
-                    is_exit = True
+                    log.write("Directory/File not found!" + " path: " + path)
+                    log.new_line()
                 break
 
             if char == KEY_BACKSPACE:
@@ -133,4 +138,11 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    log.write("Progress start.")
+    try:
+        main()
+    except Exception as e:
+        info = str(stdscr.getyx()[0]) + " " + str(stdscr.getyx()[1])
+        log.error(e, info)
+    log.write("Progress terminated.")
+    log.divide()
