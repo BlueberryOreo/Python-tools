@@ -2,7 +2,6 @@ import curses
 import os
 from pypinyin import lazy_pinyin
 from trie import Trie
-import time
 
 KEY_BACKSPACE = 8
 START_ICON = ">"
