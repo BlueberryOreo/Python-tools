@@ -7,6 +7,7 @@ import log
 KEY_BACKSPACE = 8
 START_ICON = ">"
 K = 15
+TMP_BUFF = ""
 
 stdscr = curses.initscr()
 stdscr.keypad(True)
@@ -73,6 +74,7 @@ def test_show(*info):
 
 def main():
     is_exit = False
+    global TMP_BUFF
     while True:
         buff = []
         tmp_sub = []
@@ -120,6 +122,7 @@ def main():
                 continue
 
             buff.append(chr(char))
+            TMP_BUFF = "".join(buff)
             upperwin.refresh()
 
             if char == ord("/"):
@@ -142,7 +145,7 @@ if __name__ == "__main__":
     try:
         main()
     except Exception as e:
-        info = str(stdscr.getyx()[0]) + " " + str(stdscr.getyx()[1])
-        log.error(e, info)
+        # info = str(stdscr.getyx()[0]) + " " + str(stdscr.getyx()[1])
+        log.error(e, "y: " + str(stdscr.getyx()[0]), "x: " + str(stdscr.getyx()[1]), "buff: " + TMP_BUFF)
     log.write("Progress terminated.")
     log.divide()

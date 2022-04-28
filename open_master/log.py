@@ -18,11 +18,13 @@ def write(info):
     file.write(time + " " + info + "\n")
 
 
-def error(exception, info):
+def error(exception, *info):
     time = get_time()
     tp = type(exception)
     file.write(time + " ERROR\n" + str(tp) + "\n" + str(exception) + "\n")
-    file.write(info + "\n")
+    file.write("infos:\n")
+    for i in info:
+        file.write(i + "\n")
 
 
 def divide():
