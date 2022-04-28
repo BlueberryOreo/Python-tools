@@ -57,8 +57,10 @@ def tab(buff, tmp):
 
 
 def show(buff):
+    if tree.get_size() == 0:
+        return []
     tmp = "".join(buff).split("/")[-1].lower()
-    test_show(len(tmp))
+    # test_show(len(tmp))
     sub_tree = tree.get_sub_tree(tmp)
     lowerwin.clear()
     lowerwin.addstr("\n".join(sub_tree[:K]))
@@ -87,17 +89,22 @@ def main():
 
             char = upperwin.getch()
 
+            # ====================控制键=========================
             if char == ord("\n"):
                 # 按下回车的操作：打开文件/文件夹
                 path = "".join(buff)
                 if path == "exit":
                     is_exit = True
+                elif path == "this":
+                    path = os.getcwd()
+                    os.startfile(path)
+                    log.write("Open root directory")
                 elif os.path.exists(path):
                     os.startfile(path)
                     # log.write("Open directory/file: " + path)
                     # log.new_line()
                 else:
-                    test_show("Directory/File not found!")
+                    # test_show("Directory/File not found!")
                     log.write("Directory/File not found!" + " path: " + path)
                     log.new_line()
                 break
@@ -121,6 +128,7 @@ def main():
                 tmp_sub.append(front)
                 continue
 
+            # ===============================================
             buff.append(chr(char))
             TMP_BUFF = "".join(buff)
             upperwin.refresh()

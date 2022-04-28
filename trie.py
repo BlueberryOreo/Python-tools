@@ -9,6 +9,9 @@ class Trie:
         if not self.tree[p]:
             return [self.store[p]]
         ret = []
+        if self.store.get(p):
+            ret.append(self.store.get(p))
+
         for k in self.tree[p]:
             ret += self.dfs(self.tree[p][k])
         return ret
