@@ -141,7 +141,7 @@ def main():
 
 
 if __name__ == "__main__":
-    log.write("Progress start.")
+    log.write("Progress started.")
     try:
         main()
     except Exception as e:
