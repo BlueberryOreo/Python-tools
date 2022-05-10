@@ -75,16 +75,14 @@ if __name__ == "__main__":
     # print(tree.search("air"))
     # tree.show_stored()
     # print(tree.get_sub_tree(""))
-    dirs = os.listdir("e:/")
+    dirs = os.listdir("e:/Progress/JavaProjects/")
     for d in dirs:
-        if d != lazy_pinyin(d)[0]:
-            # 中文
-            pinyin = "".join(lazy_pinyin(d))
-            tree.insert(pinyin, d)
+        tmp = "".join(lazy_pinyin(d)).lower()
+        if d != tmp:
+            # 含中文
+            tree.insert(tmp, d)
         else:
             # 英文
-            target = d
-            d = d.lower()
-            tree.insert(d, target)
+            tree.insert(tmp, d)
 
-    print(tree.get_sub_tree("p"))
+    print(tree.get_sub_tree("j"))

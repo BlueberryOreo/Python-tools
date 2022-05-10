@@ -27,15 +27,13 @@ def get_dir(path: str):
     tree.clear()
 
     for d in dirs:
-        if d != lazy_pinyin(d)[0]:
-            # 中文
-            pinyin = "".join(lazy_pinyin(d))
-            tree.insert(pinyin, d)
+        tmp = "".join(lazy_pinyin(d)).lower()
+        if d != tmp:
+            # 含中文
+            tree.insert(tmp, d)
         else:
             # 英文
-            target = d
-            d = d.lower()
-            tree.insert(d, target)
+            tree.insert(tmp, d)
 
 
 def back_space(buff):
@@ -106,7 +104,7 @@ def main():
                 else:
                     # test_show("Directory/File not found!")
                     log.write("Directory/File not found!" + " path: " + path)
-                    log.new_line()
+                    # log.new_line()
                 break
 
             if char == KEY_BACKSPACE:
@@ -149,11 +147,14 @@ def main():
 
 
 if __name__ == "__main__":
+    log.divide()
     log.write("Progress started.")
     try:
         main()
     except Exception as e:
         # info = str(stdscr.getyx()[0]) + " " + str(stdscr.getyx()[1])
         log.error(e, "y: " + str(stdscr.getyx()[0]), "x: " + str(stdscr.getyx()[1]), "buff: " + TMP_BUFF)
-    log.write("Progress terminated.")
-    log.divide()
+    finally:
+        log.write("Progress terminated.")
+        log.divide()
+        log.close()

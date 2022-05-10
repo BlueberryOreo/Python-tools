@@ -16,6 +16,7 @@ def get_time():
 def write(info):
     time = get_time()
     file.write(time + " " + info + "\n")
+    file.flush()
 
 
 def error(exception, *info):
@@ -25,11 +26,17 @@ def error(exception, *info):
     file.write("infos:\n")
     for i in info:
         file.write(i + "\n")
+    file.flush()
 
 
 def divide():
     file.write("=" * 90 + "\n")
+    file.flush()
 
 
 def new_line():
     file.write("\n")
+
+
+def close():
+    file.close()
